@@ -83,7 +83,7 @@ export default function PartnerEcosystem() {
 
           <motion.h2
             variants={itemVariants}
-            className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+            className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl lg:text-5xl"
           >
             Serving the Full Partner Ecosystem
           </motion.h2>
@@ -100,7 +100,7 @@ export default function PartnerEcosystem() {
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label="Scroll left"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-brand hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -108,7 +108,7 @@ export default function PartnerEcosystem() {
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label="Scroll right"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-brand hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
             <ChevronRight className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -128,7 +128,7 @@ export default function PartnerEcosystem() {
             <motion.div
               key={heading}
               variants={itemVariants}
-              className="group w-116 shrink-0 snap-start overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-4"
+              className="group w-116 shrink-0 snap-start overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4"
             >
               <div className="relative aspect-video overflow-hidden bg-slate-100">
                 <Image
@@ -140,7 +140,7 @@ export default function PartnerEcosystem() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-slate-900 transition-colors group-hover:text-indigo-600">
+                <h3 className="text-lg font-semibold text-navy transition-colors group-hover:text-brand-dark">
                   {heading}
                 </h3>
                 <p className="mt-2 text-sm text-slate-500">{content}</p>

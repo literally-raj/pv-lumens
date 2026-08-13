@@ -31,8 +31,8 @@ function StatValue({ target, suffix }: { target: number; suffix: string }) {
     if (!inView) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(target);
-      return;
+      const frame = requestAnimationFrame(() => setCount(target));
+      return () => cancelAnimationFrame(frame);
     }
 
     const controls = animate(0, target, {
@@ -46,10 +46,10 @@ function StatValue({ target, suffix }: { target: number; suffix: string }) {
   return (
     <p
       ref={ref}
-      className="text-5xl font-semibold tracking-tight text-slate-900 tabular-nums sm:text-6xl"
+      className="text-5xl font-semibold tracking-tight text-navy tabular-nums sm:text-6xl"
     >
       {count}
-      {suffix}
+      <span className="text-brand">{suffix}</span>
     </p>
   );
 }
@@ -68,10 +68,14 @@ export default function Stats() {
           <motion.div
             key={stat.description}
             variants={itemVariants}
-            className={`text-center sm:text-left ${
+            className={`relative text-center sm:text-left ${
               index > 0 ? "sm:border-l sm:border-slate-200 sm:pl-12" : ""
             }`}
           >
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-1/2 h-1 w-10 -translate-x-1/2 rounded-full bg-brand sm:left-0 sm:translate-x-0"
+            />
             <StatValue target={stat.value} suffix={stat.suffix} />
             <p className="mt-5 text-sm leading-relaxed text-slate-500">
               {stat.description}

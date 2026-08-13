@@ -44,7 +44,7 @@ export default function BrandHero({ brand }: BrandHeroProps) {
           href={brand.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-dark hover:text-brand"
         >
           Visit brand page
           <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

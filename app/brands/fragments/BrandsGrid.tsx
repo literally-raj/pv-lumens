@@ -10,7 +10,7 @@ export default function BrandsGrid() {
             <Link
               key={slug}
               href={`/brands/${slug}`}
-              className="group flex h-32 flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 p-6 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 hover:shadow-sm group-hover:filter group-hover:grayscale-0 group-hover:contrast-200"
+              className="group flex h-32 flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 p-6 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 hover:shadow-sm group-hover:filter group-hover:grayscale-0 group-hover:contrast-200"
             >
               {/* ponytail: third-party logos of mixed formats (svg/jpg/webp) served from the legacy site — plain img avoids next/image's SVG allowlist config for one external domain */}
               <img

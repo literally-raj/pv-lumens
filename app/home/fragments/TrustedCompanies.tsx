@@ -45,7 +45,7 @@ export default function TrustedCompanies() {
 
         <motion.h2
           variants={itemVariants}
-          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl lg:text-5xl"
         >
           Companies We&apos;ve Worked With
         </motion.h2>

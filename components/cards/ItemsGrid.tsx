@@ -22,7 +22,7 @@ export default function ItemsGrid({ items }: ItemsGridProps) {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               <div className="relative aspect-video overflow-hidden bg-slate-100">
                 {image ? (
@@ -43,7 +43,7 @@ export default function ItemsGrid({ items }: ItemsGridProps) {
               <div className="flex flex-1 items-center justify-between gap-4 p-6">
                 <h3 className="text-base font-semibold text-slate-900">{name}</h3>
                 <ArrowUpRight
-                  className="h-4 w-4 shrink-0 text-indigo-600 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="h-4 w-4 shrink-0 text-brand-dark transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 />
               </div>

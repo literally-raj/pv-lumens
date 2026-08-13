@@ -59,7 +59,7 @@ const TESTIMONIALS = [
 function TestimonialCard({ quote, title, company, logo }: (typeof TESTIMONIALS)[number]) {
   return (
     <div className="flex w-125 shrink-0 flex-col rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-      <Quote className="h-8 w-8 text-indigo-600/25" aria-hidden="true" />
+      <Quote className="h-8 w-8 text-brand/30" aria-hidden="true" />
 
       <p className="mt-5 flex-1 text-base leading-relaxed text-slate-700">
         {quote}
@@ -67,7 +67,7 @@ function TestimonialCard({ quote, title, company, logo }: (typeof TESTIMONIALS)[
 
       <div className="mt-8 flex items-center justify-between gap-4 border-t border-slate-100 pt-6">
         <div>
-          <p className="text-sm font-semibold text-slate-900">{title}</p>
+          <p className="text-sm font-semibold text-navy">{title}</p>
           <p className="text-xs text-slate-500">{company}</p>
         </div>
         <Image
@@ -84,7 +84,7 @@ function TestimonialCard({ quote, title, company, logo }: (typeof TESTIMONIALS)[
 
 export default function TestimonialMarquee() {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-surface py-16 sm:py-20">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -101,7 +101,7 @@ export default function TestimonialMarquee() {
 
         <motion.h2
           variants={itemVariants}
-          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl lg:text-5xl"
         >
           Trusted Across the Channel
         </motion.h2>

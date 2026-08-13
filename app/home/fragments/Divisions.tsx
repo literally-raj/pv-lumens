@@ -1,10 +1,18 @@
 "use client";
 
-import { ArrowRight, Check, Expand, Gauge, ShieldCheck, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Gauge,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import BottomSheet from "@/components/ui/BottomSheet";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
@@ -32,8 +40,6 @@ const DIVISION_CARDS = [
       small1: "https://images.unsplash.com/photo-1680691257251-5fead813b73e?w=800&q=80",
       small2: "https://images.unsplash.com/photo-1516044734145-07ca8eef8731?w=800&q=80",
     },
-    colSpan: "lg:col-span-2",
-    minHeight: "min-h-105",
     checklist: [
       "Structured cabling & fibre backbone",
       "Enterprise & industrial-grade switching",
@@ -57,8 +63,6 @@ const DIVISION_CARDS = [
       small1: "https://images.unsplash.com/photo-1585367437379-e0b71bb18156?w=800&q=80",
       small2: "https://images.unsplash.com/photo-1743698205310-cd814a95afab?w=800&q=80",
     },
-    colSpan: "lg:col-span-1",
-    minHeight: "min-h-105",
     checklist: [
       "IP & analog surveillance (CCTV)",
       "Access control & biometric entry",
@@ -82,8 +86,6 @@ const DIVISION_CARDS = [
       small1: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80",
       small2: "https://images.unsplash.com/photo-1586528116022-aeda1613c63d?w=800&q=80",
     },
-    colSpan: "lg:col-span-1",
-    minHeight: "min-h-90",
     checklist: [
       "Rugged barcode & QR scanning",
       "RFID tagging & tracking",
@@ -107,8 +109,6 @@ const DIVISION_CARDS = [
       small1: "https://images.unsplash.com/photo-1657093114835-031e7cf9520c?w=800&q=80",
       small2: "https://images.unsplash.com/photo-1499260126922-fbb24624a4e8?w=800&q=80",
     },
-    colSpan: "lg:col-span-1",
-    minHeight: "min-h-90",
     checklist: [
       "Aerial surveying & mapping",
       "Industrial & infrastructure inspection",
@@ -132,8 +132,6 @@ const DIVISION_CARDS = [
       small1: "https://images.unsplash.com/photo-1650530415027-dc9199f473ec?w=800&q=80",
       small2: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
     },
-    colSpan: "lg:col-span-1",
-    minHeight: "min-h-90",
     checklist: [
       "Cable & network certification",
       "Power quality & electrical testing",
@@ -150,89 +148,119 @@ const DIVISION_CARDS = [
 
 export default function Divisions() {
   const [activeCard, setActiveCard] = useState<(typeof DIVISION_CARDS)[number] | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = scrollRef.current;
+    if (!track) return;
+    const card = track.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 24 : 360; // 24px = gap-6
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-surface py-16 sm:py-20">
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
         variants={containerVariants}
-        className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8"
+        className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8"
       >
-        <motion.span
-          variants={itemVariants}
-          className="inline-flex items-center rounded-full bg-slate-100 px-4 py-1 text-xs font-semibold tracking-wide text-slate-600"
-        >
-          OUR DIVISION
-        </motion.span>
+        
 
         <motion.h2
           variants={itemVariants}
-          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-2xl font-semibold leading-snug tracking-tight text-navy sm:text-3xl lg:text-4xl"
         >
           {/* ponytail: placeholder heading, swap for final copy */}
           One Distributor, Every Layer of Enterprise Technology
         </motion.h2>
 
-        <motion.p variants={itemVariants} className="mt-5 text-lg text-slate-500">
+        <motion.p variants={itemVariants} className="mt-5 text-md text-slate-500">
           From cybersecurity to cloud, networking to data center — our
           specialized divisions bring the right technology partners to every
           part of your infrastructure.
         </motion.p>
       </motion.div>
 
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerVariants}
-        className="mx-auto mt-12 grid max-w-370 grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8"
-      >
-        {DIVISION_CARDS.map((card) => (
-          <motion.button
-            key={card.title}
+      <div className="mx-auto mt-12 max-w-370 px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-end gap-2">
+          <button
             type="button"
-            variants={itemVariants}
-            onClick={() => setActiveCard(card)}
-            className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl bg-slate-100 text-left transition-colors hover:bg-slate-200/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 ${card.colSpan} ${card.minHeight}`}
+            onClick={() => scrollByCard(-1)}
+            aria-label="Scroll divisions left"
+            className="rounded-full border border-slate-200 bg-white p-2 text-navy transition-colors hover:border-brand hover:bg-brand/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
-            <div className="flex h-full flex-col p-6 sm:p-8">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-500">{card.subheading}</p>
-                </div>
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 rounded-lg bg-indigo-100 p-2 text-indigo-600 transition-all duration-300 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white"
-                >
-                  <Expand className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
-                </span>
-              </div>
+            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label="Scroll divisions right"
+            className="rounded-full border border-slate-200 bg-white p-2 text-navy transition-colors hover:border-brand hover:bg-brand/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          >
+            <ChevronRight className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
 
-              <div className="relative mt-4 flex-1 overflow-hidden rounded-2xl">
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+        <motion.div
+          ref={scrollRef}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={containerVariants}
+          className="mt-4 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {DIVISION_CARDS.map((card) => (
+            <motion.button
+              key={card.title}
+              type="button"
+              variants={itemVariants}
+              onClick={() => setActiveCard(card)}
+              className="group relative flex h-105 w-100 shrink-0 snap-start cursor-pointer flex-col overflow-hidden rounded-2xl text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:w-125"
+            >
+              <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                sizes="(min-width: 1024px) 33vw, 100vw"
+                className="object-cover"
+              />
+              {/* Gradient — deepens on hover for better text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent transition-all duration-400 group-hover:from-navy/95 group-hover:via-navy/40" />
+
+              <div className="relative mt-auto flex flex-col p-5 sm:p-6">
+                {/* Heading slides up on hover */}
+                <h3 className="text-base font-semibold leading-snug tracking-tight text-white transition-transform duration-300 ease-out group-hover:-translate-y-2 sm:text-lg">
+                  {card.title}
+                </h3>
+                {/* Subheading hidden by default, slides up + fades in on hover */}
+                <p className="mt-1.5 translate-y-3 text-sm text-slate-200 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                  {card.subheading}
+                </p>
               </div>
-            </div>
-          </motion.button>
-        ))}
-      </motion.div>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/solutions"
+            className="inline-flex bg-[#096ED1] items-center gap-2 rounded-sm px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-brand hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          >
+            Explore All Divisions
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
 
       <BottomSheet open={activeCard !== null} onClose={() => setActiveCard(null)}>
         {activeCard && (
           <div className="mx-auto max-w-5xl pt-2">
             <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
               <div>
-                <h3 className="text-4xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl">
+                <h3 className="text-4xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl">
                   {activeCard.title}
                 </h3>
                 <p className="mt-4 max-w-xl text-base text-slate-500">
@@ -241,14 +269,14 @@ export default function Divisions() {
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link
                     href={`/solutions/${activeCard.solutionsSlug}`}
-                    className="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+                    className="inline-flex items-center gap-2 rounded-md bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
                   >
                     Explore Division
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                   <Link
                     href="/products"
-                    className="inline-flex items-center rounded-md border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+                    className="inline-flex items-center rounded-md border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
                   >
                     See details
                   </Link>
@@ -262,7 +290,7 @@ export default function Divisions() {
                     className="flex items-start gap-3 text-sm text-slate-700"
                   >
                     <Check
-                      className="mt-0.5 h-4 w-4 shrink-0 rounded-full bg-orange-100 p-0.5 text-orange-500"
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded-full bg-brand/15 p-0.5 text-brand-dark"
                       aria-hidden="true"
                     />
                     {item}
@@ -306,7 +334,7 @@ export default function Divisions() {
             <div className="mt-12 grid gap-8 border-t border-slate-200 pt-10 sm:grid-cols-3">
               {activeCard.features.map(({ icon: Icon, description }, index) => (
                 <div key={index}>
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand-dark">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <p className="mt-4 text-sm text-slate-600">{description}</p>

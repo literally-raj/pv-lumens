@@ -51,7 +51,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="bg-navy text-white">
       <div className="mx-auto max-w-375 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
@@ -67,11 +67,11 @@ export default function Footer() {
             <ul className="mt-5 space-y-4">
               {CONTACT_DETAILS.map(({ icon: Icon, text, href }) => (
                 <li key={text} className="flex items-start gap-3">
-                  <Icon className="mt-0.5 h-4 w-4 shrink-0 text-indigo-400" aria-hidden="true" />
+                  <Icon className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
                   {href ? (
                     <a
                       href={href}
-                      className="text-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                      className="text-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                     >
                       {text}
                     </a>
@@ -90,7 +90,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                    className="group inline-flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                   >
                     {link.label}
                     <ChevronRight
@@ -111,7 +111,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -119,7 +119,7 @@ export default function Footer() {
             </div>
             <a
               href="https://pvlumens.com"
-              className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
             >
               <Globe className="h-4 w-4" aria-hidden="true" />
               pvlumens.com
@@ -136,7 +136,7 @@ export default function Footer() {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="text-sm text-white/50 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                  className="text-sm text-white/50 transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                 >
                   {link.label}
                 </Link>

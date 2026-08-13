@@ -160,7 +160,7 @@ const InteractiveImageBentoGallery: React.FC<
 
         <motion.h2
           variants={headerItemVariants}
-          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl lg:text-5xl"
         >
           {title}
         </motion.h2>

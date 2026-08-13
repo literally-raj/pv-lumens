@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <a
           href="/dummy-brochure.pdf"
           download
-          className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+          className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-dark hover:text-brand"
         >
           <Download className="h-4 w-4" aria-hidden="true" />
           Download Brochure

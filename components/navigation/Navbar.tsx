@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Menu,
+  Search,
+  X,
+} from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,31 +50,21 @@ const MEGA_MENUS = {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const [openMenu, setOpenMenu] = useState<keyof typeof MEGA_MENUS | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
-  const solid = !isHome || scrolled;
   const activeMenu = openMenu ? MEGA_MENUS[openMenu] : null;
   const drawerRef = useFocusTrap<HTMLDivElement>(mobileOpen);
+  const isHome = pathname === "/";
+  const transparent = isHome && !scrolled;
 
   useEffect(() => {
-    const heroHeight = { current: window.innerHeight };
-    const updateHeroHeight = () => {
-      const hero = document.getElementById("hero");
-      heroHeight.current = hero?.offsetHeight ?? window.innerHeight;
-    };
-    const handleScroll = () => setScrolled(window.scrollY > heroHeight.current - 88);
+    const handleScroll = () => setScrolled(window.scrollY > 12);
 
-    updateHeroHeight();
     handleScroll();
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", updateHeroHeight);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", updateHeroHeight);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -94,102 +90,120 @@ export default function Navbar() {
 
   return (
     <>
-    <header
-      className={`fixed inset-x-0 top-0 z-50 w-full transition-colors duration-300 ${
-        solid ? "bg-white/95 shadow-sm backdrop-blur-sm" : "bg-black/5 backdrop-blur-sm"
-      }`}
-      onMouseLeave={() => setOpenMenu(null)}
-    >
-      <div className="mx-auto grid w-full max-w-375 grid-cols-3 items-center py-8 px-8 sm:px-6 lg:pl-4 lg:pr-8">
-        <Link
-          href="/"
-          aria-label="PV Lumens home"
-          className="shrink-0 justify-self-start rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+      <header
+        className="fixed inset-x-0 top-0 z-50 w-full"
+        onMouseLeave={() => setOpenMenu(null)}
+      >
+        {/* Main navigation bar */}
+        <div
+          className={`transition-colors duration-300 ${
+            transparent
+              ? "bg-transparent"
+              : `bg-white ${scrolled ? "shadow-md" : "border-b border-slate-200"}`
+          }`}
         >
-          <Image
-            src="/logo.svg"
-            alt="PV Lumens"
-            width={132}
-            height={21}
-            className={`h-5 w-auto transition-[filter] duration-300 ${solid ? "brightness-0" : ""}`}
-            priority
-          />
-        </Link>
+          <div className="mx-auto grid w-full max-w-375 grid-cols-[auto_1fr_auto] items-center gap-6 px-8 py-4 sm:px-6 lg:pl-4 lg:pr-8">
+            <Link
+              href="/"
+              aria-label="PV Lumens home"
+              className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              <Image
+                src="/logo.svg"
+                alt="PV Lumens"
+                width={132}
+                height={21}
+                className={`h-5 w-auto transition-[filter] duration-300 ${transparent ? "" : "brightness-0"}`}
+                priority
+              />
+            </Link>
 
-        <ul className="hidden items-center justify-self-center gap-10 md:flex">
-          {NAV_LINKS.map((link) => {
-            const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+            <nav aria-label="Primary" className="hidden items-center justify-center gap-8 md:flex">
+              {NAV_LINKS.map((link) => {
+                const isActive =
+                  link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+                const hasMenu = "menu" in link;
+                const isOpen = hasMenu && openMenu === link.menu;
 
-            return (
-              <li
-                key={link.href}
-                onMouseEnter={() => setOpenMenu("menu" in link ? link.menu : null)}
-              >
-                <Link
-                  href={link.href}
-                  className={`flex items-center gap-1 rounded-sm text-md underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                    isActive ? "font-bold underline" : "font-medium"
-                  } ${
-                    solid
-                      ? "text-slate-600 hover:text-slate-900 focus-visible:ring-slate-900 focus-visible:ring-offset-white"
-                      : "text-white hover:text-white focus-visible:ring-white focus-visible:ring-offset-black"
-                  }`}
-                >
-                  {link.label}
-                  {"menu" in link && (
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 transition-transform ${
-                        openMenu === link.menu ? "rotate-180" : ""
+                return (
+                  <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={() => setOpenMenu(hasMenu ? link.menu : null)}
+                    onFocus={() => setOpenMenu(hasMenu ? link.menu : null)}
+                  >
+                    <Link
+                      href={link.href}
+                      aria-expanded={hasMenu ? isOpen : undefined}
+                      className={`group flex items-center gap-1.5 rounded-sm py-1 text-[15px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+                        transparent
+                          ? isActive || isOpen
+                            ? "font-semibold text-white"
+                            : "font-medium text-white/80 hover:text-white"
+                          : isActive
+                            ? "font-semibold text-navy"
+                            : "font-medium text-slate-600 hover:text-navy"
                       }`}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                    >
+                      {link.label}
+                      {hasMenu && (
+                        <ChevronDown
+                          className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                            transparent ? "text-white/60" : "text-slate-400"
+                          } ${isOpen ? `rotate-180 ${transparent ? "text-white" : "text-brand-dark"}` : ""}`}
+                          aria-hidden="true"
+                        />
+                      )}
+                      {/* Green indicator underline */}
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -bottom-0.5 left-0 h-0.5 rounded-full bg-brand transition-all duration-300 ${
+                          isActive || isOpen ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
+            </nav>
 
-        <div className="col-start-3 flex items-center justify-self-end gap-3">
-          <Link
-            href="/contact"
-            className={`hidden items-center justify-center rounded-md px-8 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:inline-flex ${
-              solid
-                ? "border border-slate-300 text-slate-900 hover:bg-slate-50 focus-visible:ring-slate-900 focus-visible:ring-offset-white"
-                : "bg-white text-black hover:bg-white/90 focus-visible:ring-white focus-visible:ring-offset-black"
-            }`}
-          >
-            Contact Us
-          </Link>
+            <div className="flex items-center justify-end gap-3">
+            
 
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={mobileOpen}
-            className={`flex h-10 w-10 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 md:hidden ${
-              solid
-                ? "text-slate-900 focus-visible:ring-slate-900 focus-visible:ring-offset-white"
-                : "text-white focus-visible:ring-white focus-visible:ring-offset-black"
-            }`}
-          >
-            <Menu className="h-6 w-6" aria-hidden="true" />
-          </button>
+              <Link
+                href="/contact"
+                className="hidden items-center justify-center rounded-md bg-[#096ED1] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0759a8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#096ED1] focus-visible:ring-offset-2 sm:inline-flex"
+              >
+                Contact Us
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open menu"
+                aria-expanded={mobileOpen}
+                className={`flex h-10 w-10 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:hidden ${
+                  transparent ? "text-white hover:bg-white/10" : "text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {activeMenu && (
-          <MegaMenu
-            key={openMenu}
-            items={activeMenu.items}
-            viewAllLabel={activeMenu.viewAllLabel}
-            viewAllHref={activeMenu.viewAllHref}
-            direction={0}
-          />
-        )}
-      </AnimatePresence>
-    </header>
+        <AnimatePresence>
+          {activeMenu && (
+            <MegaMenu
+              key={openMenu}
+              items={activeMenu.items}
+              viewAllLabel={activeMenu.viewAllLabel}
+              viewAllHref={activeMenu.viewAllHref}
+              direction={0}
+            />
+          )}
+        </AnimatePresence>
+      </header>
 
       <AnimatePresence>
         {mobileOpen && (
@@ -211,7 +225,7 @@ export default function Navbar() {
                 type="button"
                 onClick={closeMobileMenu}
                 aria-label="Close menu"
-                className="flex h-11 w-11 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                className="flex h-11 w-11 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               >
                 <X className="h-6 w-6" aria-hidden="true" />
               </button>
@@ -235,16 +249,16 @@ export default function Navbar() {
                         type="button"
                         onClick={() => setMobileSolutionsOpen((current) => !current)}
                         aria-expanded={mobileSolutionsOpen}
-                        className={`flex w-full items-center justify-between rounded-lg px-4 py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
+                        className={`flex w-full items-center justify-between rounded-lg px-4 py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                           isActive || mobileSolutionsOpen
-                            ? "bg-slate-100 font-semibold text-slate-900"
-                            : "font-medium text-slate-600 hover:bg-slate-50"
+                            ? "bg-surface font-semibold text-navy"
+                            : "font-medium text-slate-600 hover:bg-surface"
                         }`}
                       >
                         {link.label}
                         <ChevronDown
                           className={`h-5 w-5 transition-transform ${
-                            mobileSolutionsOpen ? "rotate-180" : ""
+                            mobileSolutionsOpen ? "rotate-180 text-brand-dark" : ""
                           }`}
                           aria-hidden="true"
                         />
@@ -253,10 +267,10 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         onClick={closeMobileMenu}
-                        className={`flex items-center justify-between rounded-lg px-4 py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
+                        className={`flex items-center justify-between rounded-lg px-4 py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                           isActive
-                            ? "bg-slate-100 font-semibold text-slate-900"
-                            : "font-medium text-slate-600 hover:bg-slate-50"
+                            ? "bg-surface font-semibold text-navy"
+                            : "font-medium text-slate-600 hover:bg-surface"
                         }`}
                       >
                         {link.label}
@@ -279,9 +293,9 @@ export default function Navbar() {
                                 <Link
                                   href={href}
                                   onClick={closeMobileMenu}
-                                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-slate-600 transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                                 >
-                                  <Icon className="h-4 w-4 shrink-0 text-indigo-600" aria-hidden="true" />
+                                  <Icon className="h-4 w-4 shrink-0 text-brand-dark" aria-hidden="true" />
                                   {title.replace(/\.$/, "")}
                                 </Link>
                               </li>
@@ -290,10 +304,10 @@ export default function Navbar() {
                               <Link
                                 href={MEGA_MENUS.solutions.viewAllHref}
                                 onClick={closeMobileMenu}
-                                className="flex items-center gap-2 rounded-lg px-3 py-3 text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                                className="flex items-center gap-2 rounded-lg px-3 py-3 text-base font-semibold text-navy transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                               >
                                 {MEGA_MENUS.solutions.viewAllLabel}
-                                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                                <ArrowRight className="h-4 w-4 text-brand-dark" aria-hidden="true" />
                               </Link>
                             </li>
                           </motion.ul>
@@ -309,7 +323,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-center rounded-md bg-slate-900 px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+                className="flex items-center justify-center rounded-md bg-[#096ED1] px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-[#0759a8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#096ED1] focus-visible:ring-offset-2"
               >
                 Contact Us
               </Link>

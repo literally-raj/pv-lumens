@@ -31,7 +31,7 @@ export default function Toolbar({
           <select
             value={sort}
             onChange={(event) => onSortChange(event.target.value as SortOption)}
-            className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+            className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             {SORT_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>

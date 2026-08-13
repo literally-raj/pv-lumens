@@ -27,7 +27,7 @@ export default function Filters({
           <button
             type="button"
             onClick={onClear}
-            className="text-xs font-medium text-indigo-600 hover:text-indigo-500"
+            className="text-xs font-medium text-brand-dark hover:text-brand"
           >
             Clear all
           </button>
@@ -43,7 +43,7 @@ export default function Filters({
                 type="checkbox"
                 checked={selectedCategories.includes(category)}
                 onChange={() => onToggleCategory(category)}
-                className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                className="h-4 w-4 rounded border-slate-300 text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               />
               {category}
             </label>
@@ -60,7 +60,7 @@ export default function Filters({
                 type="checkbox"
                 checked={selectedBrands.includes(brand)}
                 onChange={() => onToggleBrand(brand)}
-                className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+                className="h-4 w-4 rounded border-slate-300 text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               />
               {brand}
             </label>

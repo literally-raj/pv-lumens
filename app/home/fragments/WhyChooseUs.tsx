@@ -63,7 +63,7 @@ const WHY_CHOOSE_ITEMS = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-surface py-16 sm:py-20">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -80,7 +80,7 @@ export default function WhyChooseUs() {
 
         <motion.h2
           variants={itemVariants}
-          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-semibold leading-snug tracking-tight text-navy sm:text-4xl lg:text-5xl"
         >
           Built for Scale, Trusted for Delivery
         </motion.h2>
@@ -97,12 +97,12 @@ export default function WhyChooseUs() {
           <motion.div
             key={title}
             variants={itemVariants}
-            className="rounded-2xl border-2 border-slate-250 hover:bg-slate-100 transition-all hover:shadow-md hover:cursor-pointer   p-6"
+            className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg hover:shadow-navy/5"
           >
-            <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-slate-200 text-indigo-600">
+            <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand/15 text-brand-dark">
               <Icon className="h-5 w-5" aria-hidden="true" />
             </span>
-            <h3 className="mt-5 text-base font-semibold text-slate-900">{title}</h3>
+            <h3 className="mt-5 text-base font-semibold text-navy">{title}</h3>
             <p className="mt-2 text-base leading-relaxed text-slate-600">
               {description}
             </p>

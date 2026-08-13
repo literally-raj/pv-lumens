@@ -1,5 +1,6 @@
 import ContactForm from "@/components/sections/ContactForm";
 import Divisions from "./home/fragments/Divisions";
+import FeaturedHighlights from "./home/fragments/FeaturedHighlights";
 import HeroWithTrustedCompanies from "./home/fragments/HeroWithTrustedCompanies";
 import MainTestimonial from "./home/fragments/MainTestimonial";
 import PartnerEcosystem from "./home/fragments/PartnerEcosystem";
@@ -12,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       <HeroWithTrustedCompanies belowCompany={false} />
-      <Stats />
+      <Stats/>
       <Divisions />
       <MainTestimonial />
       <WhyChooseUs />

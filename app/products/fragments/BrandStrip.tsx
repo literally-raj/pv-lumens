@@ -22,7 +22,7 @@ export default function BrandStrip({ brands, selectedBrands, onToggleBrand }: Br
                 aria-pressed={active}
                 className={`flex shrink-0 items-center gap-2 rounded-full border px-5 py-1.5 text-xs font-medium transition-colors ${
                   active
-                    ? "border-indigo-600 bg-indigo-50 text-indigo-700"
+                    ? "border-brand bg-brand/10 text-brand-dark"
                     : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
                 }`}
               >

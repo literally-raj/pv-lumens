@@ -44,7 +44,7 @@ export default function ContactForm({
   };
 
   return (
-    <section className="bg-slate-950 py-16 sm:py-24">
+    <section className="bg-navy py-16 sm:py-24">
       <div className="mx-auto grid max-w-370 grid-cols-1 gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <motion.div
           initial="hidden"
@@ -116,7 +116,7 @@ export default function ContactForm({
                   name="name"
                   type="text"
                   required
-                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-400"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-brand focus-visible:ring-2 focus-visible:ring-brand"
                 />
               </div>
 
@@ -129,7 +129,7 @@ export default function ContactForm({
                   name="email"
                   type="email"
                   required
-                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-400"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-brand focus-visible:ring-2 focus-visible:ring-brand"
                 />
               </div>
 
@@ -141,7 +141,7 @@ export default function ContactForm({
                   id="cta-phone"
                   name="phone"
                   type="tel"
-                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-400"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-brand focus-visible:ring-2 focus-visible:ring-brand"
                 />
               </div>
 
@@ -154,13 +154,13 @@ export default function ContactForm({
                   name="message"
                   rows={4}
                   required
-                  className="mt-2 w-full resize-none rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-400"
+                  className="mt-2 w-full resize-none rounded-md border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition-colors focus:border-brand focus-visible:ring-2 focus-visible:ring-brand"
                 />
               </div>
 
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+                className="inline-flex w-full items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-semibold text-navy transition-colors hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               >
                 Submit Enquiry
               </button>

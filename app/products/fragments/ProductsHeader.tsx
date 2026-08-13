@@ -27,7 +27,7 @@ export default function ProductsHeader({ search, onSearchChange }: ProductsHeade
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder="Search products or brands..."
             aria-label="Search products"
-            className="w-full rounded-md border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+            className="w-full rounded-md border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           />
         </div>
       </div>

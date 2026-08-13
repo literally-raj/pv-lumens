@@ -12,7 +12,7 @@ export default function BlogGrid() {
             <Link
               key={slug}
               href={`/blog/${slug}`}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               <div className="relative aspect-video overflow-hidden bg-slate-100">
                 <Image
@@ -24,11 +24,11 @@ export default function BlogGrid() {
                 />
               </div>
               <div className="flex flex-1 flex-col gap-3 p-6 sm:p-8">
-                <h2 className="text-lg font-semibold text-slate-900 transition-colors group-hover:text-indigo-600">
+                <h2 className="text-lg font-semibold text-navy transition-colors group-hover:text-brand-dark">
                   {title}
                 </h2>
                 <p className="text-sm text-slate-500">{excerpt}</p>
-                <span className="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-indigo-600">
+                <span className="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-brand-dark">
                   Read Now
                   <ArrowRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"

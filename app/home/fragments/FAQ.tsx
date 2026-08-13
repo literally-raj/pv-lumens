@@ -55,7 +55,7 @@ export default function FAQ() {
             className="group rounded-2xl border border-slate-200 p-6"
             open={index === 0}
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand [&::-webkit-details-marker]:hidden">
               {question}
               <ChevronDown
                 className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open:rotate-180"
