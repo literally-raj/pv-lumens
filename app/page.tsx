@@ -19,7 +19,7 @@ export default function HomePage() {
       <WhyChooseUs />
       <PartnerEcosystem />
       <Rewards />
-      <TestimonialMarquee />
+      <TestimonialMarquee />  
       <ContactForm />
     </>
   );
