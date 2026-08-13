@@ -68,13 +68,15 @@ export default function Stats() {
           <motion.div
             key={stat.description}
             variants={itemVariants}
-            className={`relative text-center sm:text-left ${
+            className={`relative text-left ${
               index > 0 ? "sm:border-l sm:border-slate-200 sm:pl-12" : ""
             }`}
           >
             <span
               aria-hidden="true"
-              className="absolute -top-3 left-1/2 h-1 w-10 -translate-x-1/2 rounded-full bg-brand sm:left-0 sm:translate-x-0"
+              className={`absolute -top-3 h-1 w-10 rounded-full bg-brand ${
+                index > 0 ? "left-0 sm:left-12" : "left-0"
+              }`}
             />
             <StatValue target={stat.value} suffix={stat.suffix} />
             <p className="mt-5 text-sm leading-relaxed text-slate-500">
